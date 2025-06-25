@@ -50,4 +50,5 @@ jobs:
           ssh_private_key: ${{ secrets.AKIBA_CENTRAL_SSH_PRIVATE_KEY }}
           ssh_user: ${{ secrets.AKIBA_CENTRAL_SSH_USER }}
           docker_compose_prefix: metrics
+          docker_compose_filename: compose.yml
           pull: true
