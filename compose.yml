@@ -1,6 +1,6 @@
 services:
   prometheus:
-    image: $REGISTRY/$IMAGE_NAME:latest
+    image: ghcr.io/akiba-hs/metrics:latest
     command:
       - --config.file=/etc/prometheus/prometheus.yml
       - --storage.tsdb.path=/prometheus
