@@ -1,0 +1,34 @@
+services:
+  prometheus:
+    image: $REGISTRY/$IMAGE_NAME:latest
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+    volumes:
+      - prometheus_data:/prometheus
+    restart: unless-stopped
+    environment:
+      - "TZ=Asia/Tomsk"
+  grafana:
+    image: grafana/grafana
+    user: root
+    depends_on:
+      - prometheus
+    volumes:
+      - grafana_data:/var/lib/grafana
+    restart: unless-stopped
+    environment:
+      - "TZ=Asia/Tomsk"
+      - "GF_FEATURE_TOGGLES_ENABLE=publicDashboards"
+      - "GF_RENDERING_SERVER_URL=http://renderer:8081/render"
+      - "GF_RENDERING_CALLBACK_URL=http://grafana:3000/"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=HostRegexp(`dashboard.akiba.space`)"
+  renderer:
+    image: grafana/grafana-image-renderer:latest
+
+
+volumes:
+  grafana_data: {}
+  prometheus_data: {}
