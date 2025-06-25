@@ -2,4 +2,4 @@ scrape_configs:
   - job_name: clue
     scrape_interval: 1m
     static_configs:
-    - targets: ['akiba-router-devices-exporter.vercel.app']
+    - targets: ['akiba-router-devices-exporter.vercel.app:80']
